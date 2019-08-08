@@ -21,6 +21,6 @@ demo/platforms
 node_modules
 publish/src
 publish/package
-src/platforms
 demo/report/report.html
 demo/report/stats.json
+!demo-vue/app/app.js
