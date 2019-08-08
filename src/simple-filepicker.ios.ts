@@ -6,6 +6,8 @@ class DocumentPickerDelegateImpl extends NSObject implements UIDocumentPickerDel
     private _resolve: any;
     private _reject: any;
 
+    static ObjCProtocols = [UIDocumentPickerDelegate];
+
     constructor() {
         super();
     }
