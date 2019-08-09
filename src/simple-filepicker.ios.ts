@@ -63,10 +63,11 @@ export const openFilePicker = (params?: FilePickerOptions) => {
         documentTypes = utils.ios.collections.jsArrayToNSArray(params.extensions);
     }
     return new Promise(function (resolve, reject) {
+        const delegate = DocumentPickerDelegateImpl.initWithResolveReject(resolve, reject);
         const controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(documentTypes, params.pickerMode !== undefined ? params.pickerMode : 0);
-        controller.delegate = DocumentPickerDelegateImpl.initWithResolveReject(resolve, reject);
         controller.allowsMultipleSelection = !!params.multipleSelection;
-        if (controller.delegate) {
+        if (delegate) {
+            controller.delegate = delegate;
             const app = UIApplication.sharedApplication;
             const window = app.keyWindow || (app.windows.count > 0 && app.windows[0]);
             const visibleVC = utils.ios.getVisibleViewController(window.rootViewController);

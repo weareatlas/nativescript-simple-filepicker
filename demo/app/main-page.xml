@@ -1,5 +1,6 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" class="page">
-  <StackLayout class="p-20">
-    <Button text="Open" tap="{{ onTap }}"></Button>
-  </StackLayout>
+    <StackLayout horizontalAlignment="stretch" verticalAlignment="center">
+        <Button text="Browse Files" tap="{{ onTap }}" class="btn btn-primary"></Button>
+        <Label text="{{ message }}" textWrap="true" fontSize="14" class="p-20"></Label>
+    </StackLayout>
 </Page>
