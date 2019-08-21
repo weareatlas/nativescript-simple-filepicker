@@ -1,0 +1,49 @@
+{
+  "nativescript": {
+    "id": "org.nativescript.demoangular",
+    "tns-android": {
+      "version": "6.0.0"
+    },
+    "tns-ios": {
+      "version": "6.0.2"
+    }
+  },
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "repository": "<fill-your-repository-here>",
+  "dependencies": {
+    "@angular/animations": "~7.2.0",
+    "@angular/common": "8.0.0",
+    "@angular/compiler": "8.0.0",
+    "@angular/core": "8.0.0",
+    "@angular/forms": "8.0.0",
+    "@angular/http": "8.0.0-beta.10",
+    "@angular/platform-browser": "8.0.0",
+    "@angular/platform-browser-dynamic": "8.0.0",
+    "@angular/router": "8.0.0",
+    "nativescript-angular": "8.0.2",
+    "nativescript-simple-filepicker": "file:../src",
+    "nativescript-theme-core": "~1.0.4",
+    "reflect-metadata": "~0.1.12",
+    "rxjs": "~6.3.0",
+    "tns-core-modules": "6.0.1",
+    "zone.js": "0.9.1"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "8.0.0",
+    "@nativescript/schematics": "~0.5.0",
+    "@ngtools/webpack": "~7.2.0",
+    "jasmine-core": "3.3.0",
+    "karma": "4.0.1",
+    "karma-jasmine": "1.1.2",
+    "karma-nativescript-launcher": "0.4.0",
+    "nativescript-dev-webpack": "1.0.1",
+    "typescript": "3.4.5"
+  },
+  "scripts": {
+    "build.plugin": "cd ../src && npm run build",
+    "ci.tslint": "npm i && tslint --config '../tslint.json' 'app/**/*.ts' --exclude '**/node_modules/**' --exclude '**/platforms/**'"
+  },
+  "gitHead": "f548ec926e75201ab1b7c4a3a7ceefe7a4db15af",
+  "readme": "NativeScript Application"
+}

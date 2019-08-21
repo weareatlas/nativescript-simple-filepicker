@@ -1,4 +1,4 @@
-package com.nativescript.documentpicker;
+package com.nativescript.simple;
 
 import android.text.TextUtils;
 import android.Manifest;
@@ -24,47 +24,17 @@ import java.io.InputStream;
 import java.util.List;
 import java.io.File;
 
-public class FilePath {
+public class FilePicker {
 
-    private static final String TAG = "[FilePath plugin]: ";
-
+    private static final String TAG = "[FilePicker plugin]: ";
 
     private static final String GET_PATH_ERROR_ID = null;
 
     private static final String GET_CLOUD_PATH_ERROR_ID = "cloud";
 
-
     private static String uriStr;
 
-
     public static final String READ = Manifest.permission.READ_EXTERNAL_STORAGE;
-
-
-
-    // public static String resolveNativePath() throws JSONException {
-    //     /* content:///... */
-    //     Uri pvUrl = Uri.parse(this.uriStr);
-
-    //     Log.d(TAG, "URI: " + this.uriStr);
-
-    //     Context appContext = this.cordova.getActivity().getApplicationContext();
-    //     String filePath = getPath(appContext, pvUrl);
-
-    //     //check result; send error/success callback
-    //     if (filePath == GET_PATH_ERROR_ID) {
-
-    //         throw new java.lang.Exception("Unable to resolve filesystem path");
-    //     }
-    //     else if (filePath.equals(GET_CLOUD_PATH_ERROR_ID)) {
-
-    //         throw new java.lang.Exception("Files from cloud cannot be resolved to filesystem, download is required");
-    //     }
-    //     else {
-    //         Log.d(TAG, "Filepath: " + filePath);
-
-    //         return "file://" + filePath;
-    //     }
-    // }
 
     /**
      * @param uri The Uri to check.
@@ -181,11 +151,6 @@ public class FilePath {
         final String relativePath = "/" + pathData[1];
         String fullPath = "";
 
-        // on my Sony devices (4.4.4 & 5.1.1), `type` is a dynamic string
-        // something like "71F8-2C0A", some kind of unique id per storage
-        // don't know any API that can get the root path of that storage based on its id.
-        //
-        // so no "primary" type, but let the check here for other devices
         if ("primary".equalsIgnoreCase(type)) {
             fullPath = Environment.getExternalStorageDirectory() + relativePath;
             if (fileExists(fullPath)) {
@@ -193,11 +158,6 @@ public class FilePath {
             }
         }
 
-        // Environment.isExternalStorageRemovable() is `true` for external and internal storage
-        // so we cannot relay on it.
-        //
-        // instead, for each possible path, check if file exists
-        // we'll start with secondary storage as this could be our (physically) removable sd card
         fullPath = System.getenv("SECONDARY_STORAGE") + relativePath;
         if (fileExists(fullPath)) {
             return fullPath;
@@ -254,7 +214,6 @@ public class FilePath {
             }
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
-                // thanks to https://github.com/hiddentao/cordova-plugin-filepath/issues/34#issuecomment-430129959
                 Cursor cursor = null;
                 try {
                     cursor = context.getContentResolver().query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null);
@@ -277,10 +236,11 @@ public class FilePath {
 
                     return getDataColumn(context, contentUri, null, null);
                 } catch(NumberFormatException e) {
-                    //In Android 8 and Android P the id is not a number
+                    // In Android 8 and Android P the id is not a number
                     return uri.getPath().replaceFirst("^/document/raw:", "").replaceFirst("^raw:", "");
                 }
             }
+
             // MediaProvider
             else if (isMediaDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
@@ -309,7 +269,6 @@ public class FilePath {
         }
         // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
-
             // Return the remote address
             if (isGooglePhotosUri(uri)) {
                 String contentPath = getContentFromSegments(uri.getPathSegments());
@@ -320,14 +279,12 @@ public class FilePath {
                     return null;
                 }
             }
-
             if(isGoogleDriveUri(uri)){
                 return getDriveFilePath(uri,context);
             }
-
             return getDataColumn(context, uri, null, null);
         }
-        // File
+
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
@@ -338,11 +295,6 @@ public class FilePath {
     private static String getDriveFilePath(Uri uri,Context context){
         Uri returnUri =uri;
         Cursor returnCursor = context.getContentResolver().query(returnUri, null, null, null, null);
-        /*
-        * Get the column indexes of the data in the Cursor,
-        *     * move to the first row in the Cursor, get the data,
-        *     * and display it.
-        * */
         int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
         int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
         returnCursor.moveToFirst();
@@ -355,19 +307,14 @@ public class FilePath {
             int read = 0;
             int maxBufferSize = 1 * 1024 * 1024;
             int  bytesAvailable = inputStream.available();
-
-            //int bufferSize = 1024;
             int bufferSize = Math.min(bytesAvailable, maxBufferSize);
 
             final byte[] buffers = new byte[bufferSize];
             while ((read = inputStream.read(buffers)) != -1) {
                 outputStream.write(buffers, 0, read);
             }
-            Log.e("File Size","Size " + file.length());
             inputStream.close();
             outputStream.close();
-            Log.e("File Path","Path " + file.getPath());
-            Log.e("File Size","Size " + file.length());
         }catch (Exception e){
             Log.e("Exception",e.getMessage());
         }

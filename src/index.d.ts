@@ -1,7 +1,3 @@
-export interface FilePickerOptions {
-    extensions?: string[];
-    multipleSelection?: boolean;
-    pickerMode?: number;
-}
+import {FilePickerOptions} from "./simple-filepicker.common";
 
-export function openFilePicker(params?: FilePickerOptions): Promise<{ files: string[]; ios?; android? }>;
+export function openFilePicker(params?: FilePickerOptions): Promise<{ files: string[] }>;

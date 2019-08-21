@@ -1,0 +1,7 @@
+<ActionBar title="My App" class="action-bar"></ActionBar>
+<GridLayout class="page">
+    <StackLayout>
+        <Button (tap)="onItemTap($event)" text="Select File"></Button>
+        <Label textWrap="true" [text]="filePath"></Label>
+    </StackLayout>
+</GridLayout>

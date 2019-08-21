@@ -1,6 +1,6 @@
 {
     "name": "nativescript-simple-filepicker",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A simple file picker using a Custom FilePath extension for Android and UIDocumentPickerView for iOS.",
     "main": "simple-filepicker",
     "typings": "index.d.ts",
@@ -20,6 +20,7 @@
         "tslint": "cd .. && tslint \"**/*.ts\" --config tslint.json --exclude \"**/node_modules/**\"",
         "plugin.tscwatch": "npm run tsc -- -w",
         "demo.ios": "npm run tsc && cd ../demo && tns run ios --emulator",
+        "demo-angular.ios": "npm i && npm run tsc && cd ../demo-angular && tns run ios",
         "demo.android": "npm run tsc && cd ../demo && tns run android",
         "demo.reset": "cd ../demo && npx rimraf -- hooks node_modules platforms package-lock.json",
         "plugin.prepare": "npm run build && cd ../demo && tns plugin remove nativescript-simple-webview && tns plugin add ../src",
@@ -52,6 +53,9 @@
         "tslint": "^5.11.0",
         "typescript": "~2.8.2"
     },
-    "dependencies": {},
+    "dependencies": {
+        "nativescript-perms": "^1.0.8",
+        "typescript-formatter": "^7.2.2"
+    },
     "bootstrapper": "nativescript-plugin-seed"
 }
