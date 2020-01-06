@@ -16,8 +16,12 @@ export class PageComponent implements OnInit {
     }
 
     onItemTap(event) {
-        openFilePicker().then((res) => {
-            this.filePath = res.files[0];
+        openFilePicker({
+            multipleSelection: true
+        }).then((res) => {
+            //this.filePath = res.files[0];
+            this.filePath = '';
+            res.files.forEach(file => this.filePath += file +  ", ");
         })
     }
 }
