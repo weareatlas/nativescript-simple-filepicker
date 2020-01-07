@@ -6,7 +6,7 @@ function callIntent(context, intent, pickerType) {
     return permissions.request('storage').then(function () {
         return new Promise(function (resolve, reject) {
             const onEvent = function (e) {
-                console.log(' startActivityForResult ', e.requestCode);                
+                console.log(' startActivityForResult ', e.requestCode);
                 if (e.requestCode === pickerType) {
                     resolve(e);
                     app.android.off(app.AndroidApplication.activityResultEvent, onEvent);
@@ -35,7 +35,7 @@ export const openFilePicker = (params?: FilePickerOptions) => {
     intent.putExtra(android.content.Intent.EXTRA_ALLOW_MULTIPLE, params && !!params.multipleSelection || false);
     return callIntent(context, intent, FILE_CODE).then((result: any) => {
         if (result.resultCode === android.app.Activity.RESULT_OK) {
-            if (result.intent != null) {                
+            if (result.intent != null) {
                 const uri = result.intent.getData();
                 let uris = [uri];
                 if (!uri) {                    

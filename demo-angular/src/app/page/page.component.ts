@@ -19,7 +19,6 @@ export class PageComponent implements OnInit {
         openFilePicker({
             multipleSelection: true
         }).then((res) => {
-            //this.filePath = res.files[0];
             this.filePath = '';
             res.files.forEach(file => this.filePath += file +  ", ");
         })
