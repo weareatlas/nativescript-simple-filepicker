@@ -20,7 +20,7 @@ export class PageComponent implements OnInit {
             multipleSelection: true
         }).then((res) => {
             this.filePath = '';
-            res.files.forEach(file => this.filePath += file +  ", ");
+            res.files.forEach(file => this.filePath += file + ', ');
         })
     }
 }

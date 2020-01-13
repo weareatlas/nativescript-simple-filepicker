@@ -9,23 +9,20 @@ export class ViewModel extends Observable {
 
     constructor() {
         super();
-
-        this.updateMessage('Please select a file.');
     }
 
     public onTap() {
         openFilePicker({
-            multipleSelection: false,
-            extensions: ['public.data'],
-            pickerMode: 0
+            multipleSelection: true
         }).then((res: { files: string[] }) => {
-            console.log(`Promise: ${res.files[0]}`);
-            this.updateMessage(res.files[0]);
+            let message: string = '';
+            res.files.forEach(file => message += file + ', ');
+            this.updateMessage(message);
         });
     }
 
     private updateMessage(message: string) {
+        console.log(message);
         this.message = message;
     }
-
 }
