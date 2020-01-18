@@ -60,7 +60,12 @@ export const openFilePicker = (params?: FilePickerOptions) => {
 };
 
 const getTypes = (extensions: string[] = []) => {
-    let types = '*/*';
+    // Default to all file types.
+    if (!extensions || extensions.length === 0) {
+        return  '*/*';
+    }
+    // Convert extensions to piped string.
+    let types = '';
     for (let i = 0; i < extensions.length; i++) {
         types += extensions[i];
         if (i !== extensions.length - 1) {
