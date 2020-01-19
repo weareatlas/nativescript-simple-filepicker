@@ -29,7 +29,8 @@
     "v8Flags": "--expose_gc",
     "requireModules": [
       "nativescript-yourplugin"
-    ]
+    ],
+    "markingMode": "full"
   },
   "devDependencies": {
     "nativescript-dev-typescript": "^0.3.0"
