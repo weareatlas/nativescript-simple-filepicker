@@ -53,7 +53,7 @@ export const openFilePicker = (params?: FilePickerOptions) => {
             if (result.intent != null) {
                 const uri = result.intent.getData();
                 let uris = [uri];
-                if (!uri) {                    
+                if (!uri) {
                     uris  = [];
                     const clipData = result.intent.getClipData();
                     if (clipData) {
@@ -65,7 +65,7 @@ export const openFilePicker = (params?: FilePickerOptions) => {
                         }
                     }
                 }
-                
+
                 const paths = uris.map(uri => com.nativescript.simple.FilePicker.getPath(context, uri));
                 return {
                     files: paths
