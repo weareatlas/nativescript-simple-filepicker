@@ -1,6 +1,6 @@
 {
     "name": "nativescript-simple-filepicker",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "A simple file picker using a Custom FilePath extension for Android and UIDocumentPickerView for iOS.",
     "main": "simple-filepicker",
     "typings": "index.d.ts",
